@@ -13,7 +13,7 @@ import java.net.URL;
  */
 public class OkHttpStack extends HurlStack {
 
-    private OkHttpClient okHttpClient;
+    private final OkHttpClient okHttpClient;
 
     /**
      * Create a OkHttpStack with default OkHttpClient.
@@ -27,7 +27,10 @@ public class OkHttpStack extends HurlStack {
      * @param okHttpClient Custom OkHttpClient, NonNull
      */
     public OkHttpStack(OkHttpClient okHttpClient) {
-        this.okHttpClient = okHttpClient;
+        if (okHttpClient == null) {
+            throw new NullPointerException("OkHttpClient must not be null.");
+        }
+        this.okHttpClient = client;
     }
 
     @Override
