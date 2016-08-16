@@ -17,7 +17,7 @@ import javax.net.ssl.SSLSocketFactory;
  */
 public class SelfSignSslOkHttpStack extends HurlStack {
 
-    private OkHttpClient okHttpClient;
+    private final OkHttpClient okHttpClient;
 
     private Map<String, SSLSocketFactory> socketFactoryMap;
 
@@ -33,6 +33,9 @@ public class SelfSignSslOkHttpStack extends HurlStack {
      * @param okHttpClient Custom OkHttpClient, NonNull
      */
     public SelfSignSslOkHttpStack(OkHttpClient okHttpClient, Map<String, SSLSocketFactory> factoryMap) {
+        if (okHttpClient == null) {
+            throw new NullPointerException("Client must not be null.");
+        }
         this.okHttpClient = okHttpClient;
         this.socketFactoryMap = factoryMap;
     }
